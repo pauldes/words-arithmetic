@@ -1,5 +1,5 @@
 import streamlit as st
-import words_arithmetic as wa
+import words_arithmetic.embedders
 
 # Constants
 PAGE_PREDICTIONS = "Current year predictions"
@@ -7,8 +7,6 @@ PAGE_PERFORMANCE = "Model performance analysis"
 CONFIDENCE_MODE_SOFTMAX = "Softmax-based"
 CONFIDENCE_MODE_SHARE = "Percentage-based"
 NUM_WORDS = 3
-
-embedder = wa.embedders.GensimEmbedder("basic embedder")
 
 # Page properties
 st.set_page_config(
@@ -51,3 +49,9 @@ for i in range(NUM_WORDS):
 
 for (operator, word) in sequence:
     st.write(f"and {operator} the word {word}")
+
+embedder = words_arithmetic.embedders.GensimEmbedder("basic embedder")
+embedder.add('king')
+embedder.add('woman')
+embedder.sub('man')
+st.write(embedder.res())
