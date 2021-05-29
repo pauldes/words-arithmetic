@@ -11,7 +11,7 @@ enableXsrfProtection=true
 folderWatchBlacklist = ['*', '.']
 
 [theme]
-primaryColor =  "#F7630C"
+primaryColor =  "#34B7EB"
 textColor="#EFECEC" 
-backgroundColor = "#34B7EB"
+backgroundColor = "#525050"
 secondaryBackgroundColor="#2E2D2D"
