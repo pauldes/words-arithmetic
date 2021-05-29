@@ -9,6 +9,7 @@ nltk = "*"
 fasttext = "*"
 words-arithmetic = {path = "./words_arithmetic"}
 pyemd = "*"
+streamlit = "*"
 
 [dev-packages]
 notebook = "*"
