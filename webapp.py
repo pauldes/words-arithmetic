@@ -38,3 +38,7 @@ f"""
 """
 )
 word = st.text_input('Base word')
+hit = st.button('Hit me')
+st.text(hit)
+st.button('Hit me')
+st.button('Hit me')
