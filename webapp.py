@@ -1,5 +1,5 @@
 import streamlit as st
-import words_arithmetic.embedder
+import words_arithmetic as wa
 
 # Constants
 PAGE_PREDICTIONS = "Current year predictions"
@@ -8,7 +8,7 @@ CONFIDENCE_MODE_SOFTMAX = "Softmax-based"
 CONFIDENCE_MODE_SHARE = "Percentage-based"
 NUM_WORDS = 3
 
-embedder = words_arithmetic.embedder.Embedder("basic embedder")
+embedder = wa.embedder.GensimEmbedder("basic embedder")
 
 # Page properties
 st.set_page_config(
