@@ -8,6 +8,7 @@ gensim = "*"
 nltk = "*"
 fasttext = "*"
 words-arithmetic = {path = "./words_arithmetic"}
+pyemd = "*"
 
 [dev-packages]
 notebook = "*"
