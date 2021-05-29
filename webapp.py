@@ -38,3 +38,5 @@ f"""
 *Performing operations on word using word embeddings.*
 """
 )
+st.text_input('Enter some text')
+st.text_area('Area for textual entry')

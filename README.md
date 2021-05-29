@@ -8,3 +8,5 @@ https://allennlp.org/elmo
 
 https://radimrehurek.com/gensim/models/word2vec.html
 
+Run the web app locally : 
+```pipenv run streamlit run webapp.py```
