@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "56505afa4e16123e9f71b8cbb723f21bcee80ee4adf35a5e210b306d48fd14bf"
+            "sha256": "d709eaf33edd1ac1095ed94edfe16d40717e49088147f701df7d0e57aa150690"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -236,6 +236,10 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
             "version": "==4.61.0"
+        },
+        "words-arithmetic": {
+            "path": "./words_arithmetic",
+            "version": "==0.0.1"
         }
     },
     "develop": {}
