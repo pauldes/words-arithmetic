@@ -20,10 +20,9 @@ st.sidebar.markdown(
     """
 **How does it work ?**
 
-A statistical regression model is fitted on historical data (player and team stats, and MVP voting results).
-It is then used to predict this season MVP based on current data.
-The model predicts the *award share* (the number of points a player received for MVP award over the total points of all first-place votes).
-This share can then be converted to a chance/probability using various methods (see *Predictions parameters*).
+###
+###
+###
 """
 )
 st.sidebar.markdown(
@@ -38,5 +37,4 @@ f"""
 *Performing operations on word using word embeddings.*
 """
 )
-st.text_input('Enter some text')
-st.text_area('Area for textual entry')
+word = st.text_input('Base word')
