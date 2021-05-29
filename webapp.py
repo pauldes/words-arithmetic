@@ -8,7 +8,7 @@ CONFIDENCE_MODE_SOFTMAX = "Softmax-based"
 CONFIDENCE_MODE_SHARE = "Percentage-based"
 NUM_WORDS = 3
 
-embedder = wa.embedder.GensimEmbedder("basic embedder")
+embedder = wa.embedders.GensimEmbedder("basic embedder")
 
 # Page properties
 st.set_page_config(
