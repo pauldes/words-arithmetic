@@ -10,6 +10,8 @@ fasttext = "*"
 words-arithmetic = {path = "./words_arithmetic"}
 
 [dev-packages]
+notebook = "*"
+jupyter = "*"
 
 [requires]
 python_version = "3.8"
