@@ -1,10 +1,9 @@
 class Embedder:
-    def __init__(self, fname, lname):
-        self.firstname = fname
-        self.lastname = lname
+    def __init__(self, name):
+        self.name = name
     
     def printname(self):
-        print(self.firstname, self.lastname)
+        print(self.name)
 
     def __repr__(self):
         return "Embedder()"

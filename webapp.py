@@ -1,11 +1,14 @@
 import streamlit as st
-import words_arithmetic as wa
+import words_arithmetic.embedder
 
 # Constants
 PAGE_PREDICTIONS = "Current year predictions"
 PAGE_PERFORMANCE = "Model performance analysis"
 CONFIDENCE_MODE_SOFTMAX = "Softmax-based"
 CONFIDENCE_MODE_SHARE = "Percentage-based"
+NUM_WORDS = 3
+
+embedder = words_arithmetic.embedder.Embedder("basic embedder")
 
 # Page properties
 st.set_page_config(
@@ -37,8 +40,14 @@ f"""
 *Performing operations on word using word embeddings.*
 """
 )
-word = st.text_input('Base word')
-hit = st.button('Hit me')
-st.text(hit)
-st.button('Hit me')
-st.button('Hit me')
+base_word = st.text_input('Base word')
+#hit = st.button('Hit me')
+sequence = []
+col1, col2 = st.beta_columns([1, 3])
+for i in range(NUM_WORDS):
+    #operator = col1.selectbox('Select', ["+", "-"])
+    sequence.append(("operator-placeholder", "word-placeholder"))
+    sequence[i] = (col1.radio(f'Operator n°{i}', ["+", "-"]), col2.text_input(f'Word n°{i}'))
+
+for (operator, word) in sequence:
+    st.write(f"and {operator} the word {word}")
