@@ -1,4 +1,5 @@
 import gensim.downloader
+
 class Embedder:
     def __init__(self, name):
         self.name = name
@@ -9,7 +10,7 @@ class Embedder:
     def __str__(self):
         return "member of Test"
 
-class GensimEmbedder:
+class GensimEmbedder(Embedder):
     def __init__(self, name, pretrained='glove-wiki-gigaword-50'):
         self.name = name
         self.model = gensim.downloader.load(pretrained)
