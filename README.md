@@ -1,3 +1,5 @@
+![Actions badge](https://github.com/pauldes/words-arithmetic/actions/workflows/main.yml/badge.svg)
+
 # words-arithmetic
 
 https://github.com/facebookresearch/fastText
