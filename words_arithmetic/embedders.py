@@ -1,6 +1,9 @@
+import abc
+
 import gensim.downloader
 
-class Embedder:
+class Embedder(metaclass=abc.ABCMeta):
+
     def __init__(self, name):
         self.name = name
 
@@ -12,6 +15,18 @@ class Embedder:
 
     def clean_word(self, word_to_clean):
         return ''.join(char for char in word_to_clean if char.isalpha()).lower() 
+
+    @abc.abstractmethod
+    def add(self, positive:str):
+        pass
+
+    @abc.abstractmethod
+    def sub(self, negative:str):
+        pass
+
+    @abc.abstractmethod
+    def res(self):
+        pass
 
 class GensimEmbedder(Embedder):
 
