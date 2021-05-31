@@ -25,13 +25,13 @@ class GensimEmbedder(Embedder):
         self.negatives = []
 
     def is_valid(self, word_to_embed:str):
-        test1 = len(word_to_embed)>=1
+        is_not_empty = len(word_to_embed)>=1
         try:
-            test2 = self.model[word_to_embed]
-            test2 = True
+            is_known = self.model[word_to_embed]
+            is_known = True
         except KeyError:
-            test2 = False
-        return test1 and test2
+            is_known = False
+        return is_not_empty and is_known
 
     def add(self, positive:str):
         clean_positive = self.clean_word(positive)
