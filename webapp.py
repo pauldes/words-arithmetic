@@ -1,6 +1,11 @@
+
 import streamlit as st
+from matplotlib import pyplot
+
 import words_arithmetic
 from words_arithmetic import embedders
+
+pyplot.style.use('dark_background')
 
 # Cached methods
 @st.cache(allow_output_mutation=True)
@@ -17,7 +22,7 @@ st.set_page_config(
 )
 
 #navigation_page = st.sidebar.radio("Navigate to", [PAGE_PREDICTIONS, PAGE_PERFORMANCE])
-available_models = embedders.GensimEmbedder.available_models
+available_models = embedders.GensimEmbedder.available_models()
 engine = st.sidebar.selectbox('Select an engine', ["Gensim"])
 model = st.sidebar.selectbox('Select a model', available_models)
 
@@ -62,7 +67,15 @@ for (operand, word) in sequence:
 
 st.subheader("Results")
 res = embedder.res()
-first_res_word = res[0][0]
+first_res_word = list(res.keys())[0]
 equation = "".join(f"{operand} {word} " if i>0 else f"{word} " for i,  (operand, word) in enumerate(sequence)) + f"= **{first_res_word}**"
 st.info(equation)
-st.info("\n\n".join(f"{w} ({s:.2f})" for w,s in embedder.res()))
+
+widths = list(res.values())
+labels = list(res.keys())
+
+fig, ax = pyplot.subplots()
+pyplot.barh(y=range(len(widths), 0, -1), width=widths, height=0.8, tick_label=labels, color="#34B7EB")
+ax.autoscale()
+ax.set_xlim(max([min(widths)-0.05, 0.0]), min([max(widths)+0.05, 1.0]))
+st.pyplot(fig, transparent=True)

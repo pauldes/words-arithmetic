@@ -16,9 +16,9 @@ class Embedder(metaclass=abc.ABCMeta):
     def clean_word(self, word_to_clean):
         return ''.join(char for char in word_to_clean if char.isalpha()).lower() 
 
-    @property
+    @classmethod
     @abc.abstractmethod
-    def available_models(self):
+    def available_models(cls):
         pass
 
     @abc.abstractmethod
@@ -45,8 +45,8 @@ class GensimEmbedder(Embedder):
         self.positives = []
         self.negatives = []
 
-    @property
-    def available_models(self):
+    @classmethod
+    def available_models(cls):
         return list(gensim.downloader.info()['models'].keys())
 
     def is_valid(self, word_to_embed:str):
@@ -78,5 +78,4 @@ class GensimEmbedder(Embedder):
         positives = self.positives if len(self.positives)>0 else None
         negatives = self.negatives if len(self.negatives)>0 else None
         results = self.model.most_similar_cosmul(positive=positives, negative=negatives, topn=10)
-        most_similar_key, similarity = results[0]
-        return results
+        return dict(results)

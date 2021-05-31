@@ -10,6 +10,7 @@ fasttext = "*"
 words-arithmetic = {path = "./words_arithmetic"}
 pyemd = "*"
 streamlit = "*"
+matplotlib = "*"
 
 [dev-packages]
 notebook = "*"
