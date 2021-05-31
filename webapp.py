@@ -2,17 +2,11 @@ import streamlit as st
 import words_arithmetic
 from words_arithmetic import embedders
 
-# Constants
-PAGE_PREDICTIONS = "Current year predictions"
-PAGE_PERFORMANCE = "Model performance analysis"
-CONFIDENCE_MODE_SOFTMAX = "Softmax-based"
-CONFIDENCE_MODE_SHARE = "Percentage-based"
-
 # Cached methods
 @st.cache(allow_output_mutation=True)
-def load_embedder(embedder_name):
+def load_embedder(embedder_name, pretrained):
     # Mutate bar
-    return embedders.GensimEmbedder(embedder_name)
+    return embedders.GensimEmbedder(embedder_name, pretrained)
 
 # Page properties
 st.set_page_config(
@@ -22,7 +16,11 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-navigation_page = st.sidebar.radio("Navigate to", [PAGE_PREDICTIONS, PAGE_PERFORMANCE])
+#navigation_page = st.sidebar.radio("Navigate to", [PAGE_PREDICTIONS, PAGE_PERFORMANCE])
+available_models = embedders.GensimEmbedder.available_models
+engine = st.sidebar.selectbox('Select an engine', ["Gensim"])
+model = st.sidebar.selectbox('Select a model', available_models)
+
 st.sidebar.markdown(
     """
 **How does it work ?**
@@ -44,7 +42,7 @@ f"""
 *Performing arithmetic on words using word embeddings.*
 """
 )
-embedder = load_embedder("basic embedder")
+embedder = load_embedder("basic embedder", model)
 col1, col2 = st.beta_columns([1, 3])
 num_words = col1.number_input("Number of words", min_value=1, max_value=9, value=2, step=1, format="%i")
 base_word = col2.text_input('Base word', 'King')

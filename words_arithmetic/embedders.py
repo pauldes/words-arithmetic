@@ -14,7 +14,11 @@ class Embedder:
         return ''.join(char for char in word_to_clean if char.isalpha()).lower() 
 
 class GensimEmbedder(Embedder):
-    def __init__(self, name, pretrained='glove-wiki-gigaword-50'):
+
+    available_models = list(gensim.downloader.info()['models'].keys())
+    DEFAULT_PRETRAINED = 'glove-wiki-gigaword-50'
+
+    def __init__(self, name, pretrained=DEFAULT_PRETRAINED):
         self.name = name
         self.model = gensim.downloader.load(pretrained)
         self.positives = []
