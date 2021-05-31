@@ -1,5 +1,5 @@
 import streamlit as st
-import words_arithmetic.embedders
+import words_arithmetic
 
 # Constants
 PAGE_PREDICTIONS = "Current year predictions"
