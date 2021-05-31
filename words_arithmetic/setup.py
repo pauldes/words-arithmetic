@@ -5,5 +5,5 @@ setuptools.setup(
     version="0.0.1",
     description="Package used for the application words_arithmetic",
     packages=[],
-    python_requires="==3.8.7",
+    python_requires="==3.8.10",
 )
