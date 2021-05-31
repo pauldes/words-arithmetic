@@ -16,6 +16,11 @@ class Embedder(metaclass=abc.ABCMeta):
     def clean_word(self, word_to_clean):
         return ''.join(char for char in word_to_clean if char.isalpha()).lower() 
 
+    @property
+    @abc.abstractmethod
+    def available_models(self):
+        pass
+
     @abc.abstractmethod
     def add(self, positive:str):
         pass
@@ -28,16 +33,21 @@ class Embedder(metaclass=abc.ABCMeta):
     def res(self):
         pass
 
+    @abc.abstractmethod
+    def flush(self):
+        pass
+
 class GensimEmbedder(Embedder):
 
-    available_models = list(gensim.downloader.info()['models'].keys())
-    DEFAULT_PRETRAINED = 'glove-wiki-gigaword-50'
-
-    def __init__(self, name, pretrained=DEFAULT_PRETRAINED):
+    def __init__(self, name, pretrained='glove-twitter-25'):
         self.name = name
         self.model = gensim.downloader.load(pretrained)
         self.positives = []
         self.negatives = []
+
+    @property
+    def available_models(self):
+        return list(gensim.downloader.info()['models'].keys())
 
     def is_valid(self, word_to_embed:str):
         is_not_empty = len(word_to_embed)>=1
