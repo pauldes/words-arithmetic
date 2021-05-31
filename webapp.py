@@ -1,12 +1,18 @@
 import streamlit as st
 import words_arithmetic
+from words_arithmetic import embedders
 
 # Constants
 PAGE_PREDICTIONS = "Current year predictions"
 PAGE_PERFORMANCE = "Model performance analysis"
 CONFIDENCE_MODE_SOFTMAX = "Softmax-based"
 CONFIDENCE_MODE_SHARE = "Percentage-based"
-NUM_WORDS = 3
+
+# Cached methods
+@st.cache(allow_output_mutation=True)
+def load_embedder(embedder_name):
+    # Mutate bar
+    return embedders.GensimEmbedder(embedder_name)
 
 # Page properties
 st.set_page_config(
@@ -35,23 +41,31 @@ st.sidebar.markdown(
 st.title("🌊 Words arithmetic")
 st.markdown(
 f"""
-*Performing operations on word using word embeddings.*
+*Performing arithmetic on words using word embeddings.*
 """
 )
-base_word = st.text_input('Base word')
-#hit = st.button('Hit me')
-sequence = []
+embedder = load_embedder("basic embedder")
 col1, col2 = st.beta_columns([1, 3])
-for i in range(NUM_WORDS):
-    #operator = col1.selectbox('Select', ["+", "-"])
-    sequence.append(("operator-placeholder", "word-placeholder"))
-    sequence[i] = (col1.radio(f'Operator n°{i}', ["+", "-"]), col2.text_input(f'Word n°{i}'))
+num_words = col1.number_input("Number of words", min_value=1, max_value=9, value=2, step=1, format="%i")
+base_word = col2.text_input('Base word', 'King')
+sequence = [("+", base_word)]
+embedder.flush()
+for i in range(num_words):
+    #operand = col1.selectbox('Select', ["+", "-"])
+    sequence.append(("operand-placeholder", "word-placeholder"))
+    sequence[i+1] = (col1.radio(f'operand n°{i}', ["+", "-"]), col2.text_input(f'Word n°{i}'))
 
-for (operator, word) in sequence:
-    st.write(f"and {operator} the word {word}")
+for (operand, word) in sequence:
+    clean_word = word
+    if operand == "+":
+        embedder.add(clean_word)
+    elif operand == "-":
+        embedder.sub(clean_word)
+    else:
+        raise ValueError(f"Unsupported operand {operand}")
 
-embedder = words_arithmetic.embedders.GensimEmbedder("basic embedder")
-embedder.add('king')
-embedder.add('woman')
-embedder.sub('man')
-st.write(embedder.res())
+st.subheader("Results")
+res = embedder.res()
+first_res_word = res[0][0]
+st.text("".join(f"{operand} {word} " if i>0 else f"{word} " for i,  (operand, word) in enumerate(sequence)) + f"= {first_res_word}")
+st.info("\n\n".join(f"{w} ({s:.2f})" for w,s in embedder.res()))

@@ -10,6 +10,9 @@ class Embedder:
     def __str__(self):
         return "member of Test"
 
+    def clean_word(self, word_to_clean):
+        return ''.join(char for char in word_to_clean if char.isalpha()).lower() 
+
 class GensimEmbedder(Embedder):
     def __init__(self, name, pretrained='glove-wiki-gigaword-50'):
         self.name = name
@@ -17,15 +20,34 @@ class GensimEmbedder(Embedder):
         self.positives = []
         self.negatives = []
 
+    def is_valid(self, word_to_embed:str):
+        test1 = len(word_to_embed)>=1
+        try:
+            test2 = self.model[word_to_embed]
+            test2 = True
+        except KeyError:
+            test2 = False
+        return test1 and test2
+
     def add(self, positive:str):
-        self.positives.append(positive)
+        clean_positive = self.clean_word(positive)
+        if self.is_valid(clean_positive):
+            self.positives.append(clean_positive)
 
     def sub(self, negative:str):
-        self.negatives.append(negative)
+        clean_negative = self.clean_word(negative)
+        if self.is_valid(clean_negative):
+            self.negatives.append(clean_negative)
+
+    def flush(self):
+        self.positives = []
+        self.negatives = []
 
     def res(self):
-        print(self.positives)
-        print(self.negatives)
-        results = self.model.most_similar_cosmul(positive=self.positives, negative=self.negatives, topn=3)
+        print("Positives :", self.positives)
+        print("Negatives :", self.negatives)
+        positives = self.positives if len(self.positives)>0 else None
+        negatives = self.negatives if len(self.negatives)>0 else None
+        results = self.model.most_similar_cosmul(positive=positives, negative=negatives, topn=10)
         most_similar_key, similarity = results[0]
-        return f"{most_similar_key}: {similarity:.4f}"
+        return results
