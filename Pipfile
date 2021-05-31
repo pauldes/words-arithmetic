@@ -11,6 +11,7 @@ words-arithmetic = {path = "./words_arithmetic"}
 pyemd = "*"
 streamlit = "*"
 matplotlib = "*"
+pyyaml = "*"
 
 [dev-packages]
 notebook = "*"

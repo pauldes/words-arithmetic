@@ -13,6 +13,16 @@ def load_embedder(embedder_name, pretrained):
     # Mutate bar
     return embedders.GensimEmbedder(embedder_name, pretrained)
 
+def default_operand(i):
+    if i==0 : return "-"
+    elif i==1 : return "+"
+    else: return "+"
+
+def default_word(i):
+    if i==0 : return "Man"
+    elif i==1 : return "Woman"
+    else: return ""
+
 # Page properties
 st.set_page_config(
     page_title="Words arithmetic",
@@ -48,13 +58,14 @@ f"""
 embedder = load_embedder("basic embedder", model)
 col1, col2 = st.beta_columns([1, 3])
 num_words = col1.number_input("Number of words", min_value=1, max_value=9, value=2, step=1, format="%i")
-base_word = col2.text_input('Base word', 'King')
+base_word = col2.text_input('Base word', "King")
 sequence = [("+", base_word)]
 embedder.flush()
 for i in range(num_words):
-    #operand = col1.selectbox('Select', ["+", "-"])
+    operand = default_operand(i)
+    word = default_word(i)
     sequence.append(("operand-placeholder", "word-placeholder"))
-    sequence[i+1] = (col1.radio(f'operand n°{i}', ["+", "-"]), col2.text_input(f'Word n°{i}'))
+    sequence[i+1] = (col1.radio(f'Operand n°{i}', ["+", "-"], 0 if operand=="+" else 1), col2.text_input(f'Word n°{i}', word))
 
 for (operand, word) in sequence:
     clean_word = word

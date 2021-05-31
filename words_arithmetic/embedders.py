@@ -77,5 +77,5 @@ class GensimEmbedder(Embedder):
         print("Negatives :", self.negatives)
         positives = self.positives if len(self.positives)>0 else None
         negatives = self.negatives if len(self.negatives)>0 else None
-        results = self.model.most_similar_cosmul(positive=positives, negative=negatives, topn=10)
+        results = self.model.most_similar_cosmul(positive=positives, negative=negatives, topn=5)
         return dict(results)
