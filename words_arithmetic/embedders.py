@@ -5,10 +5,10 @@ class Embedder:
         self.name = name
 
     def __repr__(self):
-        return "Embedder()"
+        return f"Embedder(name={self.name})"
 
     def __str__(self):
-        return "member of Test"
+        return f"An Embedder named {self.name}."
 
     def clean_word(self, word_to_clean):
         return ''.join(char for char in word_to_clean if char.isalpha()).lower() 
