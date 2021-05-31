@@ -25,9 +25,7 @@ st.sidebar.markdown(
     """
 **How does it work ?**
 
-###
-###
-###
+Word embedding is a technique used in natural language processing (NLP) tasks to convert unstructured text data to numerical vectors.
 """
 )
 st.sidebar.markdown(
@@ -65,5 +63,6 @@ for (operand, word) in sequence:
 st.subheader("Results")
 res = embedder.res()
 first_res_word = res[0][0]
-st.text("".join(f"{operand} {word} " if i>0 else f"{word} " for i,  (operand, word) in enumerate(sequence)) + f"= {first_res_word}")
+equation = "".join(f"{operand} {word} " if i>0 else f"{word} " for i,  (operand, word) in enumerate(sequence)) + f"= **{first_res_word}**"
+st.info(equation)
 st.info("\n\n".join(f"{w} ({s:.2f})" for w,s in embedder.res()))
