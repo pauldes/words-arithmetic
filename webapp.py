@@ -40,7 +40,8 @@ st.sidebar.markdown(
     """
 **How does it work ?**
 
-Word embedding is a technique used in natural language processing (NLP) tasks to convert unstructured text data to numerical vectors.
+Word embedding is a technique used in natural language processing (NLP) tasks to convert unstructured text data to numerical vectors. 
+Once words are turned into vectors, one can easily sum or substract them.
 """
 )
 st.sidebar.markdown(
