@@ -37,7 +37,7 @@ engine = st.sidebar.selectbox('Select an engine', ["Gensim"])
 model = st.sidebar.selectbox('Select a model', available_models)
 
 st.sidebar.markdown(
-    """
+f"""
 **How does it work ?**
 
 Word embedding is a technique used in natural language processing (NLP) tasks to convert unstructured text data to numerical vectors. 
@@ -45,7 +45,7 @@ Once words are turned into vectors, one can easily sum or substract them.
 """
 )
 st.sidebar.markdown(
-    """
+f"""
 *Made by [pauldes](https://github.com/pauldes). Code on [GitHub](https://github.com/pauldes/words-arithmetic).*
 """
 )
